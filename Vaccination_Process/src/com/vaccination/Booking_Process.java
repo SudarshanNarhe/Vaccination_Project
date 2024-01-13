@@ -72,10 +72,10 @@ public class Booking_Process {
 	
 	public void displaySlot(Scanner sc) throws ClassNotFoundException, SQLException {
 		
-		System.out.println("\nEnter a date for booking a slot in the form of yyyy-mm-dd : ");
-		booking_date=Date.valueOf(sc.next());
-		System.out.println("Enter a Center ID : ");
+		System.out.println("\nEnter a Center ID : ");
 		center_id=sc.nextInt();
+		System.out.println("Enter a date for booking a slot in the form of yyyy-mm-dd : ");
+		booking_date=Date.valueOf(sc.next());
 		con=MyConnection.getMyConnection();
 		
 		sql = "{ call show_Slots (?,?) }";
@@ -192,7 +192,33 @@ public class Booking_Process {
 			
 		}
 //	 }
+	
+	}
+	
+	public void bookSlot(Scanner sc) throws ClassNotFoundException, SQLException {
+		System.out.println("Check Your register details you are register user or not ");
+		this.showUser(sc);
+		System.out.println("\nEnter Your Aadhar No to book slot : ");
+		aadhar=sc.next();
+		this.showCities();
+		this.select_center(sc);
+		this.displaySlot(sc);
+
+		con=MyConnection.getMyConnection();
+		sql="insert into slot_booking (AadharNo,Booking_Date,Center_id,slot_id) values (?,?,?,?);";
 		
+		ps=con.prepareStatement(sql);
+		ps.setString(1, aadhar);
+		ps.setDate(2, booking_date);
+		ps.setInt(3, center_id);
+		ps.setInt(4, slot_id);
+		
+		int a = ps.executeUpdate();
+		if(a>0) {
+			System.out.println("Slot booked Successfully");
+		}
+		else
+			System.out.println("Invalid Criteria");
 		
 	}
 	
@@ -202,7 +228,9 @@ public class Booking_Process {
 		System.out.println("**********************  Booking Process  ****************************");
 		Booking_Process book = new Booking_Process();
 		
-		System.out.println("Press 1 for book vaccination slots \nPress 2 for check User details \nPress 3 for check Booking details");
+		System.out.println("\nPress 1 : book vaccination slots \nPress 2 : check User details \nPress 3 : check Booking details\nPress 4 : book slots if you are registered user");
+		System.out.println("\n**********************************************************************");
+		System.out.println("Enter : ");
 		int choice=sc.nextInt();
 		switch(choice) {
 		case 1 : book.showCities();
@@ -215,14 +243,12 @@ public class Booking_Process {
 		
 		case 3 : book.showBookingDetails(sc); break;
 		
+		case 4 : book.bookSlot(sc); break;
+		
 		default : System.out.println("Thank you for visited....");
 		
 		}
-		
-		
-		
-		
-		
+			
 	}
 	
 }
