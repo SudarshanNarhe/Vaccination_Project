@@ -148,7 +148,7 @@ public class Booking_Process {
 		ps.setString(1, aadhar);
 		rs=ps.executeQuery();
 		while(rs.next()) {
-			System.out.println("AadharNo : "+rs.getString(1)+"  FirstName : "+rs.getString(2)+"  LastName : "+rs.getString(3)+"  DOB : "+rs.getDate(4)+"  MobileNo : "+rs.getString(5)+"  Mail : "+rs.getString(6));
+			System.out.println("AadharNo : "+rs.getString(1)+"\nFirstName : "+rs.getString(2)+"\nLastName : "+rs.getString(3)+"\nDOB : "+rs.getDate(4)+"\nMobileNo : "+rs.getString(5)+"\nMail : "+rs.getString(6));
 		}
 //	  }
 	
@@ -188,7 +188,7 @@ public class Booking_Process {
 		rs=ps.executeQuery();
 		while(rs.next()) {
 			
-			System.out.println("BookingID : "+rs.getInt(1)+" AadharNo : "+rs.getString(2)+" Booking Date : "+rs.getDate(3)+" Center ID : "+rs.getInt(4)+" Slot ID : "+rs.getInt(5));
+			System.out.println("BookingID : "+rs.getInt(1)+"\nAadharNo : "+rs.getString(2)+"\nBooking Date : "+rs.getDate(3)+"\nCenter ID : "+rs.getInt(4)+"\nSlot ID : "+rs.getInt(5));
 			
 		}
 //	 }
